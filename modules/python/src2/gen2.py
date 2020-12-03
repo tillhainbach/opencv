@@ -1130,9 +1130,14 @@ class PythonWrapperGenerator(object):
 
 if __name__ == "__main__":
     srcfiles = hdr_parser.opencv_hdr_list
-    dstdir = "/Users/vp/tmp"
+
     if len(sys.argv) > 1:
         dstdir = sys.argv[1]
+    else:
+        import os
+        dstdir = os.path.join(os.path.expanduser("~"), "tmp")
+        if not os.path.exists(dstdir):
+            os.mkdir(dstdir)
     if len(sys.argv) > 2:
         with open(sys.argv[2], 'r') as f:
             srcfiles = [l.strip() for l in f.readlines()]
