@@ -47,11 +47,30 @@ return_value_type
 
 
 class ArgumentDict(TypedDict):
-    type: str
     name: str
+    type: str
     default_value: str
     modifiers: List[str]
 
+class ClassDict(TypedDict):
+    name: str
+    type: str
+    base_class: str
+    class_properties: List[ArgumentDict]
+    instance_properties: List[ArgumentDict]
+    methods: List[FunctionDict]
+
+class FunctionDict(TypedDict):
+    name: str
+    type: str
+    arguments: List[ArgumentDict]
+    return_type: str
+    modifiers: List[ArgumentDict]
+
+class EnumDict(TypedDict):
+    name: str
+    type: str
+    properties: List[ArgumentDict]
 
 class DeclarationDict(TypedDict):
     name: str
@@ -233,6 +252,13 @@ def declaration_parser() -> Generator[None, Declaration, None]:
             for arg in declaration.arguments:
                 name = arg.type.replace("const cv.", "")
                 print("\t{}: int = {}".format(name, arg.name))
+
+
+def parser_sink() -> Generator[None, Tuple(Declaration, type), Dict]:
+    """Create dictionary of functions."""
+
+
+    return dict
 
 
 if __name__ == '__main__':
